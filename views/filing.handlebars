@@ -1,0 +1,11 @@
+<h2>{{data.name}} ({{data.ticker}})</h2>
+<p><span class="text-muted">Share Price:</span> ${{data.price}}    <span class="text-muted">Market Cap: </span>{{data.marketCap}}</p>
+
+<div class="list-group">
+  {{!-- <a href="#" class="list-group-item list-group-item-action active">
+  </a> --}}
+   {{#each data.filings}}
+      {{!-- <li>{{this.url}}</li> --}}
+      <a href="{{this.urlPrimaryDocument}}" class="list-group-item list-group-item-action">{{this.form}} | {{this.reportDate}}</a>
+    {{/each}}
+</div>
