@@ -1,14 +1,13 @@
-// Import the express module
 const express = require('express');
 const { engine } = require('express-handlebars');
 const { secEdgarApi } = require('sec-edgar-api');
 
-// Create an instance of an Express app
+
 const app = express();
 
 app.engine('handlebars', engine({
-    layoutsDir: 'views/layouts', // Specify the layout directory
-    defaultLayout: 'main'        // Specify the default layout file (without the .handlebars extension)
+    layoutsDir: 'views/layouts',
+    defaultLayout: 'main'
   }));
   
 app.set('view engine', 'handlebars');
@@ -54,7 +53,6 @@ app.get('/filings/:ticker', async (req, res) => {
 
 });
 
-// Start the server on port 3000
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
