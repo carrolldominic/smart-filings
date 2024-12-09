@@ -1,0 +1,36 @@
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+        }
+        .view-frame {
+            width: 80%; /* Takes up 80% of the width */
+            height: 100%; /* Full height */
+            border: none;
+            overflow-y: scroll;
+        }
+        .sidebar {
+            width: 20%; /* Takes up 20% of the width */
+            background-color: #f4f4f4;
+            height: 100%; /* Full height */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+</style>
+
+<div class="container">
+        {{!-- <iframe src="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}" title="Example Iframe"></iframe> --}}
+        <div class="view-frame">
+            {{{data.html}}}
+        </div>
+        <div class="sidebar">
+            <h3>Filing Details</h3>
+            <a target="_blank" href="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}">Source</a>
+        </div>
+    </div>
+
