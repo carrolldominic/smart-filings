@@ -41,12 +41,18 @@ app.get('/filings/:ticker', async (req, res) => {
     const ticker = req.params.ticker;
     let sub = await getSubmissions(ticker);
 
+ 
+    function convertToMillions(num) {
+        let millions = (num / 1000000).toFixed(1);
+        
+        return parseFloat(millions).toLocaleString();
+    }
     const quote = await yahooFinance.quote(ticker);    
 
     let data = {
       name: quote.shortName,
       price: quote.regularMarketPrice,
-      marketCap: quote.marketCap,
+      marketCap: convertToMillions(quote.marketCap),
       ticker: ticker,
       filings: Object.values(sub.filings)
     };
