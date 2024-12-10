@@ -87,7 +87,7 @@ async function fetchData(url) {
     try {
         const response = await axios.get(url, {
             headers: {
-              'User-Agent': 'MyCustomUserAgent/1.0'  // Set your custom user agent here
+              'User-Agent': 'Carroll info@dominiccarroll.com'
             }
           });        return response.data;
     } catch (error) {
