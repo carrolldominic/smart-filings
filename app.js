@@ -13,11 +13,12 @@ app.engine('handlebars', engine({
     layoutsDir: 'views/layouts',
     defaultLayout: 'main'
   }));
-  
-app.set('view engine', 'handlebars');
-app.set('views', './views');
 
-var path = require ('path');
+  var path = require ('path');
+
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname + '../views'));
+
 app.use(express.static(path.join(__dirname + '../public')));
 
 app.get('/', (req, res) => {
