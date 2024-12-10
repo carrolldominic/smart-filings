@@ -1,3 +1,5 @@
+const PORT = process.env.PORT || 3000;
+
 const express = require('express');
 const { engine } = require('express-handlebars');
 const { secEdgarApi } = require('sec-edgar-api');
@@ -18,7 +20,7 @@ app.set('views', './views');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+    res.render('index');
 });
 
 
@@ -118,7 +120,6 @@ app.get('/view/:cik/:accession/:document', async (req, res) => {
   
 });
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });

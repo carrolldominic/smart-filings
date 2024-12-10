@@ -1,0 +1,32 @@
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    <div class="row">
+        <h1>Sift through SEC filings easier.</h1>
+    </div>
+    <div class="row">
+        <form id="tickerForm2" class="w-100">
+            <input type="search" id="filingInput2" class="form-control text-center" style="max-width: 200px;" placeholder="Company ticker" aria-label="Search">
+            <input type="submit" class="btn btn-success" text="Submit">
+        </form>        
+    </div>
+</div>
+
+
+
+<script>
+    document.getElementById('tickerForm2').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+    const inputValue = document.getElementById('filingInput2').value; // Get input value
+    if (inputValue) {
+        const newUrl = `${window.location.origin}/filings/${inputValue}`; // Construct the new URL
+        window.location.href = newUrl; // Redirect to the new URL
+        console.log('success?');
+    } else {
+        alert("Please enter a ticker"); // Handle empty input
+    }
+    });
+</script>
