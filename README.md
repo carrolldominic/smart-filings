@@ -1,5 +1,7 @@
 ## About
 A web app built with Node.js/Express.js for quick, clean surfing of SEC filings and enhanced functionality.
+## Live Demo
+You can view the live demo of the project here: [Smart Filings](https://smart-filings.vercel.app/)
 ## Dependencies
 This project requires the following npm packages:
 - **axios**: ^1.7.9
