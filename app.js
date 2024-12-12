@@ -29,16 +29,23 @@ async function getSubmissions(ticker) {
     try {
         let submissions = await secEdgarApi.getSubmissions({ symbol: ticker });
         let reports = await secEdgarApi.getReports({ symbol: ticker });
+        let facts = await secEdgarApi.getFacts({ symbol: ticker });
+
+        console.log(facts);
         // console.log(submissions);
         // Object.values(submissions).forEach(value => {
         //     console.log(value);
         // });          
         // console.log(typeof submissions);
+        // console.log(submissions);
         return { submissions, reports };
     } catch (e) {
         return e;
     }
 }
+
+getSubmissions("AAPL");
+
 
 app.get('/filings/:ticker', async (req, res) => {
   try {
@@ -52,6 +59,14 @@ app.get('/filings/:ticker', async (req, res) => {
         let millions = (num / 1000000).toFixed(1);
         
         return parseFloat(millions).toLocaleString();
+    }
+    function formatPE(num) {
+      if (typeof num !== undefined && typeof num !== null) {
+        let formatted = Number(num).toFixed(1);
+        return formatted;   
+      } else {
+        return "--";
+      }
     }
     const quote = await yahooFinance.quote(ticker);    
     // console.log(quote);
@@ -71,6 +86,8 @@ app.get('/filings/:ticker', async (req, res) => {
       price: quote.regularMarketPrice,
       marketCap: convertToMillions(quote.marketCap),
       ticker: ticker,
+      trailingPE: formatPE(quote.trailingPE),
+      forwardPE: formatPE(quote.forwardPE),
       cik: Object.values(reports)[0].cik,
       financialFilings: financialFilings,
       newsFilings: newsFilings,
@@ -105,6 +122,7 @@ app.get('/view/:cik/:accession/:document', async (req, res) => {
       const url = "https://www.sec.gov/Archives/edgar/data/" + cik + "/" + accession + "/" + document;
     //   console.log(url);
       const html = await fetchData(url);
+ 
     //   console.log(html);
       let data = {
         cik: cik,
