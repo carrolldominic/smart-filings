@@ -31,7 +31,7 @@ async function getSubmissions(ticker) {
         let reports = await secEdgarApi.getReports({ symbol: ticker });
         let facts = await secEdgarApi.getFacts({ symbol: ticker });
 
-        console.log(facts);
+        // console.log(facts);
         // console.log(submissions);
         // Object.values(submissions).forEach(value => {
         //     console.log(value);
@@ -102,9 +102,11 @@ app.get('/filings/:ticker', async (req, res) => {
 
 async function fetchData(url) {
     try {
+        let ran = Math.ceil(Math.random()*1000+200);
+        let agent = 'Carroll' + ran + ' info@dominiccarroll.com';
         const response = await axios.get(url, {
             headers: {
-              'User-Agent': 'Carroll info@dominiccarroll.com'
+              'User-Agent': agent
             }
           });        return response.data;
     } catch (error) {
@@ -117,10 +119,10 @@ app.get('/view/:cik/:accession/:document', async (req, res) => {
     try {
       const cik = req.params.cik;
       const accession = req.params.accession.replace(/-/g, '');
-      console.log(accession);
+      // console.log(accession);
       const document = req.params.document;
       const url = "https://www.sec.gov/Archives/edgar/data/" + cik + "/" + accession + "/" + document;
-    //   console.log(url);
+      console.log(url);
       const html = await fetchData(url);
  
     //   console.log(html);
