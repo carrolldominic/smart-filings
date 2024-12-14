@@ -24,7 +24,6 @@ app.engine('handlebars', engine({
       });
   });
 
-// routes
 const filingsRoutes = require('./routes/filings');
 const viewRoutes = require('./routes/view');
 const tableRoutes = require('./routes/table');
