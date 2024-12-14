@@ -1,3 +1,5 @@
+  <button id="hoverButton" class="btn btn-lg btn-success">View Similar Tables</button>
+
 <style>
         body, html {
             margin: 0;
@@ -25,12 +27,27 @@
 
 <div class="container">
         {{!-- <iframe src="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}" title="Example Iframe"></iframe> --}}
-        <div class="view-frame">
+        <div class="view-frame" id="viewFrame">
             {{{data.html}}}
         </div>
         <div class="sidebar">
-            <h3>Filing Details</h3>
+            <h4>Filing Details</h4>
+            <p>Company: <span id="tickerLabel">{{data.ticker}}</span></p>
             <a target="_blank" href="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}">Download Filing</a>
         </div>
     </div>
+<style>
+    #hoverButton {
+  position: absolute;
+  display: none; /* Initially hide the button :P */
+  z-index: 10;
+  border: none;
+  cursor: pointer;
+}
 
+table {
+  margin-top: 50px;
+}
+
+</style>
+<script src="/scripts/tableHover.js"></script>

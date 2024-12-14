@@ -2,10 +2,6 @@ const PORT = process.env.PORT || 3000;
 
 const express = require('express');
 const { engine } = require('express-handlebars');
-const { secEdgarApi } = require('sec-edgar-api');
-const axios = require('axios');
-
-const yahooFinance = require('yahoo-finance2').default;
 
 const app = express();
 
@@ -19,128 +15,30 @@ app.engine('handlebars', engine({
   app.set("views", __dirname + "/views");
   app.set("view engine", "handlebars");
   app.use(express.static(__dirname + "public"));
+  app.use('/scripts', (req, res, next) => {
+      express.static(path.join(__dirname, 'public/scripts'))(req, res, () => {
+          if (req.path.endsWith('.js')) {
+              res.setHeader('Content-Type', 'text/javascript');
+          }
+          next();
+      });
+  });
+
+
+const filingsRoutes = require('./routes/filings');
+const viewRoutes = require('./routes/view');
+const tableRoutes = require('./routes/table');
+
+
+app.use('/filings', filingsRoutes);
+app.use('/view', viewRoutes);
+app.use('/tables', tableRoutes);
+
 
 app.get('/', (req, res) => {
     res.render('index');
 });
 
-
-async function getSubmissions(ticker) {
-    try {
-        let submissions = await secEdgarApi.getSubmissions({ symbol: ticker });
-        let reports = await secEdgarApi.getReports({ symbol: ticker });
-        let facts = await secEdgarApi.getFacts({ symbol: ticker });
-
-        // console.log(facts);
-        // console.log(submissions);
-        // Object.values(submissions).forEach(value => {
-        //     console.log(value);
-        // });          
-        // console.log(typeof submissions);
-        // console.log(submissions);
-        return { submissions, reports };
-    } catch (e) {
-        return e;
-    }
-}
-
-getSubmissions("AAPL");
-
-
-app.get('/filings/:ticker', async (req, res) => {
-  try {
-    const ticker = req.params.ticker.toUpperCase();
-    let sec = await getSubmissions(ticker);
-    let sub = sec.submissions;
-    let reports = sec.reports;
-
-    console.log(Object.values(reports)[0].cik);
-    function convertToMillions(num) {
-        let millions = (num / 1000000).toFixed(1);
-        
-        return parseFloat(millions).toLocaleString();
-    }
-    function formatPE(num) {
-      if (typeof num !== undefined && typeof num !== null) {
-        let formatted = Number(num).toFixed(1);
-        return formatted;   
-      } else {
-        return "--";
-      }
-    }
-    const quote = await yahooFinance.quote(ticker);    
-    // console.log(quote);
-    let financialFilings = [];
-    let newsFilings = [];
-
-    Object.values(sub.filings).forEach(value => {
-        if (value.form == "10-K" || value.form == "10-Q") {
-            financialFilings.push(value);
-        } else if (value.form == "8-K") {
-            newsFilings.push(value);
-        }
-    });      
-
-    let data = {
-      name: quote.shortName,
-      price: quote.regularMarketPrice,
-      marketCap: convertToMillions(quote.marketCap),
-      ticker: ticker,
-      trailingPE: formatPE(quote.trailingPE),
-      forwardPE: formatPE(quote.forwardPE),
-      cik: Object.values(reports)[0].cik,
-      financialFilings: financialFilings,
-      newsFilings: newsFilings,
-    };
-  //   res.send(`Test: ${Object.values(data.filings)[0].urlPrimaryDocument}`);
-    res.render('filing', { data });
-  } catch (error) {
-    res.render('error', { error });
-  }
-
-});
-
-async function fetchData(url) {
-    try {
-        let ran = Math.ceil(Math.random()*1000+200);
-        let agent = 'Carroll' + ran + ' info@dominiccarroll.com';
-        const response = await axios.get(url, {
-            headers: {
-              'User-Agent': agent
-            }
-          });        return response.data;
-    } catch (error) {
-        console.error('Error fetching the URL:', error);
-        return error;
-      }
-}
-
-app.get('/view/:cik/:accession/:document', async (req, res) => {
-    try {
-      const cik = req.params.cik;
-      const accession = req.params.accession.replace(/-/g, '');
-      // console.log(accession);
-      const document = req.params.document;
-      const url = "https://www.sec.gov/Archives/edgar/data/" + cik + "/" + accession + "/" + document;
-      console.log(url);
-      const html = await fetchData(url);
- 
-    //   console.log(html);
-      let data = {
-        cik: cik,
-        accession: accession,
-        document: document,
-        html: html
-      };
-    //   console.log('test');
-    //   res.send(`Test: ${Object.values(data.filings)[0].urlPrimaryDocument}`);
-      res.render('filingview', { data });
-    } catch (error) {
-      res.render('error', { error });
-    }
-  
-});
-
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at on port: ${PORT}`);
 });

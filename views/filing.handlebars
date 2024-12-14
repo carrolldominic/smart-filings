@@ -10,7 +10,7 @@
       <h4>Financial Reports</h4>
       <ul class="list-group" style="max-height: 500px; overflow-y: auto;">
         {{#each data.financialFilings}}
-          <a target="_blank" href="../view/{{../data.cik}}/{{this.accessionNumber}}/{{this.primaryDocument}}" style="text-decoration: none;">
+          <a target="_blank" href="../view/{{../data.ticker}}/{{../data.cik}}/{{this.accessionNumber}}/{{this.primaryDocument}}" style="text-decoration: none;">
             <li target="_blank" class="list-group-item d-flex justify-content-between align-items-center">
               <b>{{this.form}}</b> {{this.reportDate}}
             </li>
@@ -22,7 +22,7 @@
       <h4>News Releases</h4>
       <ul class="list-group" style="max-height: 500px; overflow-y: auto;">
         {{#each data.newsFilings}}
-          <a target="_blank" href="../view/{{../data.cik}}/{{this.accessionNumber}}/{{this.primaryDocument}}" style="text-decoration: none;">
+          <a target="_blank" href="../view/{{../data.ticker}}/{{../data.cik}}/{{this.accessionNumber}}/{{this.primaryDocument}}" style="text-decoration: none;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>{{this.form}}</b> {{this.reportDate}}
             </li>
