@@ -1,0 +1,15 @@
+
+<div class='container'>
+    </br>
+    <h2>{{data.ticker}}: View Similar Tables</h2>
+
+    <ul class="list-group">
+        {{#each data.filings}}
+          <a style="cursor: pointer;" onclick="window.open('../../table-view/{{../data.ticker}}/{{../data.cik}}/{{this.accessionNumber}}/{{this.primaryDocument}}/{{../data.columnsData}}', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');" style="text-decoration: none;">
+            <li target="_blank" class="list-group-item d-flex justify-content-between align-items-center">
+              <b>{{this.form}}</b> {{this.reportDate}}
+            </li>
+          </a>
+        {{/each}}
+      </ul>
+</div>

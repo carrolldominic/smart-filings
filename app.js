@@ -10,27 +10,30 @@ app.engine('handlebars', engine({
     defaultLayout: 'main'
   }));
 
-  var path = require ('path');
+var path = require ('path');
 
-  app.set("views", __dirname + "/views");
-  app.set("view engine", "handlebars");
-  app.use(express.static(__dirname + "public"));
-  app.use('/scripts', (req, res, next) => {
-      express.static(path.join(__dirname, 'public/scripts'))(req, res, () => {
-          if (req.path.endsWith('.js')) {
-              res.setHeader('Content-Type', 'text/javascript');
-          }
-          next();
-      });
-  });
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
+app.use(express.static(__dirname + "public"));
+app.use('/scripts', (req, res, next) => {
+    express.static(path.join(__dirname, 'public/scripts'))(req, res, () => {
+        if (req.path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'text/javascript');
+        }
+        next();
+    });
+});
 
 const filingsRoutes = require('./routes/filings');
 const viewRoutes = require('./routes/view');
-const tableRoutes = require('./routes/table');
+const tableRoutes = require('./routes/tables');
+const tableViewRoutes = require('./routes/table-view');
+
 
 app.use('/filings', filingsRoutes);
 app.use('/view', viewRoutes);
 app.use('/tables', tableRoutes);
+app.use('/table-view', tableViewRoutes);
 
 
 app.get('/', (req, res) => {

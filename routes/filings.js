@@ -56,7 +56,7 @@ router.get('/:ticker', async (req, res) => {
       res.render('error', { error });
     }
   
-  });
+});
 
 
-  module.exports = router;
+module.exports = router;

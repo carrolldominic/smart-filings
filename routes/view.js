@@ -1,25 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const axios = require('axios');
 
-
+const fetchData = require('../util/fetchData');
 
 router.get('/:ticker/:cik/:accession/:document', async (req, res) => {
-    async function fetchData(url) {
-        try {
-            let ran = Math.ceil(Math.random()*1000+200);
-            let agent = 'Carroll' + ran + ' info@dominiccarroll.com';
-            const response = await axios.get(url, {
-                headers: {
-                  'User-Agent': agent
-                }
-              });        return response.data;
-        } catch (error) {
-            console.error('Error fetching the URL:', error);
-            return error;
-          }
-    }
+    
     try {
       const ticker = req.params.ticker;
       const cik = req.params.cik;

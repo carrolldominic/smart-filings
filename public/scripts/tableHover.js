@@ -48,7 +48,7 @@ $(document).ready(function() {
 
           if (typeof utf !== 'undefinded') {
             let tablesTicker = $('#tickerLabel').text();
-            const newUrl = `${window.location.origin}/similar-tables/${tablesTicker}/${utf}`;
+            const newUrl = `${window.location.origin}/tables/${tablesTicker}/${utf}`;
             // window.location.href = newUrl;
             window.open(newUrl, "_blank"); 
           }
