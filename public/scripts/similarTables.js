@@ -44,13 +44,18 @@ $(document).ready(function() {
         let c = getFirstColumnCells(t);
         let j = jaccardIndex(focusColumns, c);
         if (j > 0) {
+            similarTables.push([$(table).clone(), j]);
             console.log('Table ' + index + ' : ' + j);
-            let clone = $(table).clone();
-            $('#tableFrame').append($('</br>'));
-            $('#tableFrame').append($('<h2>Table ' + index + '</h2>'));
-            $('#tableFrame').append(clone);
-            $('#tableFrame').append($('</br>'));
-
         }
     });
+    similarTables.sort((a, b) => b[1] - a[1]);
+
+    similarTables.forEach((item, index) => {
+        // let clone = $(item).clone();
+        $('#tableFrame').append($('</br>'));
+        $('#tableFrame').append($('<h3>Table ' + (index+1) + ' (Match: ' + (item[1]*100).toFixed(2) + '%)</h3>'));
+        $('#tableFrame').append(item[0]);
+        $('#tableFrame').append($('</br>'));
+    });
+
 });
