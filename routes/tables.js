@@ -24,7 +24,7 @@ router.get('/:ticker/:data', async (req, res) => {
     let data = {
         ticker: ticker,
         columnsData: raw, // to be used on the front-end to separate out tables from the whole filing html
-        cik: Object.values(rep)[0].cik,
+        cik: Object.values(rep)[0].cik, 
         filings: financialFilings  // array of objects for which contain filing data and html for accordion
     };
 

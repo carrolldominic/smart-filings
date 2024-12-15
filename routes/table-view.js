@@ -23,6 +23,7 @@ router.get('/:ticker/:cik/:accession/:document/:columns', async (req, res) => {
           accession: accession,
           document: document,
           columns:columns,
+          url: url,
           html: html
         };
       //   console.log('test');
