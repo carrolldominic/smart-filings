@@ -54,28 +54,28 @@ $(document).ready(function() {
           }
         });
 
-        $('#hoverButtonDownload').click(function() {
-              var csv = [];
+        // $('#hoverButtonDownload').click(function() {
+        //       var csv = [];
         
-              var rows = $tableFocus.find('tr');
+        //       var rows = $tableFocus.find('tr');
               
-              rows.each(function () {
-                var row = [];
+        //       rows.each(function () {
+        //         var row = [];
                 
-                $(this).find('td, th').each(function () {
-                  row.push($(this).text().trim()); 
-                });
+        //         $(this).find('td, th').each(function () {
+        //           row.push($(this).text().trim()); 
+        //         });
                 
-                csv.push(row.join(','));
-              });
+        //         csv.push(row.join(','));
+        //       });
           
-              var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
+        //       var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
           
-              var link = document.createElement('a');
-              link.href = URL.createObjectURL(csvFile);
-              link.download = 'table.csv';
-              link.click();
-            });
+        //       var link = document.createElement('a');
+        //       link.href = URL.createObjectURL(csvFile);
+        //       link.download = 'table.csv';
+        //       link.click();
+        //     });
 
       clearTimeout(hideTimeout);
     });
