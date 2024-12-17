@@ -57,26 +57,20 @@ $(document).ready(function() {
         $('#hoverButtonDownload').click(function() {
               var csv = [];
         
-              // Get rows from the $tableFocus variable (which contains the table)
               var rows = $tableFocus.find('tr');
               
-              // Loop through each row
               rows.each(function () {
                 var row = [];
                 
-                // Get columns (td or th) in the current row
                 $(this).find('td, th').each(function () {
-                  row.push($(this).text().trim());  // Add cell data to the row
+                  row.push($(this).text().trim()); 
                 });
                 
-                // Join row data with commas and add to the CSV array
                 csv.push(row.join(','));
               });
           
-              // Create a downloadable CSV file
               var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
           
-              // Create a link element and simulate a click to download
               var link = document.createElement('a');
               link.href = URL.createObjectURL(csvFile);
               link.download = 'table.csv';
