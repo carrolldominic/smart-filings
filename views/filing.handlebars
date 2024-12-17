@@ -2,8 +2,19 @@
 <div class="container">
   <div class="row">
     <h2>{{data.name}} ({{data.ticker}})</h2>
-    <p><span class="text-muted">Share Price:</span> ${{data.price}}    <span class="text-muted">Market Cap: </span>${{data.marketCap}}M</p>
-    <p><span class="text-muted">Trailing PE: </span> {{data.trailingPE}}x    <span class="text-muted">Forward PE: </span> {{data.forwardPE}}x</p>
+    <span>
+    <p style="display: inline;" class="text-muted">Relevant Links: </p>
+    <a href="https://www.sec.gov/edgar/browse/?CIK={{data.cik}}&owner=exclude" target="_blank" style="display: inline;">EDGAR Page</a>
+    <a href="https://finance.yahoo.com/quote/{{data.ticker}}/" target="_blank" style="display: inline; margin-left: 10px;">Yahoo Finance</a>
+    </span>
+    <span>
+    <p style="display: inline;"><span class="text-muted" style="display: inline;">Share Price:</span> ${{data.price}}</p>
+    <p style="display: inline; margin-left: 10px;"><span class="text-muted">Market Cap: </span>${{data.marketCap}}M</p>
+    </span>
+    <span>
+    <p style="display: inline;"><span class="text-muted">Trailing PE: </span> {{data.trailingPE}}x</p>
+    <p style="display: inline; margin-left: 10px;"><span class="text-muted">Forward PE: </span> {{data.forwardPE}}x</p>
+    </span>
   </div>
   <div class="row">
     <div class="col-6">
