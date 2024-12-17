@@ -1,4 +1,7 @@
-  <button id="hoverButton" class="btn btn-lg btn-success">View Similar Tables</button>
+<div id="hoverButtons">
+  <button id="hoverButtonSimilar" class="btn btn-sm btn-success"><i class="bi-search"></i> View Similar Tables</button>
+  <button id="hoverButtonDownload" class="btn btn-sm btn-primary"><i class="bi-file-earmark-spreadsheet-fill"></i> Download</button>
+</div>
 
 <style>
         body, html {
@@ -37,13 +40,14 @@
         </div>
     </div>
 <style>
-    #hoverButton {
+    #hoverButtons {
   position: absolute;
   display: none; /* Initially hide the button :P */
   z-index: 10;
   border: none;
   cursor: pointer;
 }
+
 
 table {
   margin-top: 50px;

@@ -27,13 +27,13 @@ $(document).ready(function() {
 
       $tableFocus = $(this);
 
-      $('#hoverButton').css({
-        top: tableOffset.top - $('#hoverButton').outerHeight() - 10,
-        left: tableOffset.left + (tableWidth / 2) - ($('#hoverButton').outerWidth() / 2)
+      $('#hoverButtons').css({
+        top: tableOffset.top - $('#hoverButtons').outerHeight() - 10,
+        left: tableOffset.left + (tableWidth / 2) - ($('#hoverButtons').outerWidth() / 2)
       }).show();
 
 
-      $('#hoverButton').click(function() {
+      $('#hoverButtonSimilar').click(function() {
           var textList = [];
           let firstCol = getFirstColumnCells($tableFocus);
 
@@ -54,19 +54,51 @@ $(document).ready(function() {
           }
         });
 
+        $('#hoverButtonDownload').click(function() {
+              var csv = [];
+        
+              // Get rows from the $tableFocus variable (which contains the table)
+              var rows = $tableFocus.find('tr');
+              
+              // Loop through each row
+              rows.each(function () {
+                var row = [];
+                
+                // Get columns (td or th) in the current row
+                $(this).find('td, th').each(function () {
+                  row.push($(this).text().trim());  // Add cell data to the row
+                });
+                
+                // Join row data with commas and add to the CSV array
+                csv.push(row.join(','));
+              });
+          
+              // Create a downloadable CSV file
+              var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
+          
+              // Create a link element and simulate a click to download
+              var link = document.createElement('a');
+              link.href = URL.createObjectURL(csvFile);
+              link.download = 'table.csv';
+              link.click();
+            });
+
       clearTimeout(hideTimeout);
     });
 
     $('table').mouseleave(function() {
       hideTimeout = setTimeout(function() {
-        $('#hoverButton').hide();
-        $('#hoverButton').off('click');
+        $('#hoverButtons').hide();
+        $('#hoverButtonSimilar').off('click');
+        $('#hoverButtonDownload').off('click');
+
       }, 5000);
     });
 
     $('#viewFrame').scroll(function() {
-          $('#hoverButton').hide();
-          $('#hoverButton').off('click');
+          $('#hoverButtons').hide();
+          $('#hoverButtonSimilar').off('click');
+          $('#hoverButtonDownload').off('click');
           clearTimeout(hideTimeout);
     });
   });
