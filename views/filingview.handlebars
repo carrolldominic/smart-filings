@@ -34,9 +34,16 @@
             {{{data.html}}}
         </div>
         <div class="sidebar">
-            <h4>Filing Details</h4>
+            <h5>Filing View</h5>
             <p>Company: <span id="tickerLabel">{{data.ticker}}</span></p>
-            <a target="_blank" href="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}">Download Filing</a>
+
+            <br/>
+            <br/>
+            <br/>
+            <span id="linkHistoryPane">
+            <h5>Link History</h5>
+            <ul id="linkHistory" style="overflow-y: scroll; max-height: 300px;"></ul>
+            </span>
         </div>
     </div>
 <style>
@@ -54,4 +61,7 @@ table {
 }
 
 </style>
+
+
 <script src="/scripts/tableHover.js"></script>
+<script src="/scripts/linkHistory.js"></script>
