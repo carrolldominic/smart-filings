@@ -43,7 +43,7 @@ $(document).ready(function() {
               }
           });
 
-          let jsonData = JSON.stringify(textList);
+          let jsonData = JSON.stringify(textList).replace(/[^\x00-\x7F]/g, "");
           let utf = btoa(unescape(encodeURIComponent(jsonData)));
 
           if (typeof utf !== 'undefinded') {
@@ -55,27 +55,47 @@ $(document).ready(function() {
         });
 
         $('#hoverButtonDownload').click(function() {
-              var csv = [];
-        
-              var rows = $tableFocus.find('tr');
-              
-              rows.each(function () {
-                var row = [];
-                
-                $(this).find('td, th').each(function () {
-                  row.push($(this).text().trim()); 
-                });
-                
-                csv.push(row.join(','));
+          var csv = [];
+          var $table = $tableFocus; // Ensure this points to your table (e.g., $('#yourTableId') or $('.yourTableClass'))
+          
+          // Select all rows from the table
+          var rows = $table.find('tr');
+          
+          rows.each(function() {
+              var row = [];
+              // Find all cells (td or th) in the row
+              $(this).find('td, th').each(function() {
+                  var text = $(this).text().trim(); // Get the text content and trim whitespace
+                  
+                  // Handle special cases for your table:
+                  // 1. Remove commas from numbers (e.g., "36,330" -> "36330")
+                  text = text.replace(/,/g, '');
+                  // 2. Replace line breaks (e.g., "December 28,\n2024") with a space or other delimiter
+                  text = text.replace(/\n/g, ' ');
+                  // 3. Skip cells with no meaningful content (e.g., empty or just padding)
+                  if (text.length > 0 && text !== '$' && text !== ' ') { // Ignore empty cells, standalone '$', or non-breaking spaces
+                      row.push('"' + text + '"'); // Wrap text in quotes to handle commas or spaces within the text
+                  }
               });
+              // Only add non-empty rows to the CSV
+              if (row.length > 0) {
+                  csv.push(row.join(','));
+              }
+          });
           
-              var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
-          
-              var link = document.createElement('a');
-              link.href = URL.createObjectURL(csvFile);
-              link.download = 'table.csv';
-              link.click();
-            });
+          // Join rows with newlines to create the CSV content
+          var csvContent = csv.join('\n');
+          // Create a Blob for the CSV file
+          var csvFile = new Blob([csvContent], { type: 'text/csv' });
+          // Create a download link
+          var link = document.createElement('a');
+          link.href = URL.createObjectURL(csvFile);
+          link.download = 'financial_data.csv'; // Customize the filename
+          link.click();
+      });
+      
+      
+      
 
       clearTimeout(hideTimeout);
     });
