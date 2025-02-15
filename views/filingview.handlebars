@@ -1,3 +1,5 @@
+<title>{{data.ticker}} - Smart Filings</title>
+
 <div id="hoverButtons">
   <button id="hoverButtonSimilar" class="btn btn-sm btn-success"><i class="bi-search"></i> View Similar Tables</button>
   <button id="hoverButtonDownload" class="btn btn-sm btn-primary"><i class="bi-file-earmark-spreadsheet-fill"></i> Download</button>
@@ -36,7 +38,7 @@
         <div class="sidebar">
             <h5>Filing View</h5>
             <p>Company: <span id="tickerLabel">{{data.ticker}}</span></p>
-
+            <a href="https://www.sec.gov/Archives/edgar/data/{{data.cik}}/{{data.accession}}/{{data.document}}" target="_blank">View Original Filing</a>
             <br/>
             <br/>
             <br/>
