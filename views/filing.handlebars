@@ -42,4 +42,23 @@
       </ul>
     </div>
   </div>
+  </br>
+  <div class="row">
+    <div class="col">
+      <h4>Recent Headlines</h4>
+      <ul class="list-group" style="max-height: 500px; overflow-y: auto;">
+        {{#each data.yahooNews}}
+            <a target="_blank" href="{{this.link}}" style="text-decoration: none;">
+              <li class="list-group-item d-flex flex-column">
+    <div class="d-flex justify-content-between w-100">
+        <b>{{this.title}}</b> {{this.providerPublishTime}}
+    </div>
+    <p class="text-muted fst-italic small mb-0">{{this.publisher}}</p>
+</li>
+
+            </a>
+        {{/each}}
+      </ul>
+      </div>
+  </div>
 </div>
