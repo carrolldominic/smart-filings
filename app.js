@@ -37,7 +37,7 @@ app.use('/table-view', tableViewRoutes);
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {title: "Browse Company Information Efficiently - Smart Filings"});
 });
 
 app.listen(PORT, () => {

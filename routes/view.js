@@ -26,7 +26,7 @@ router.get('/:ticker/:cik/:accession/:document', async (req, res) => {
       };
     //   console.log('test');
     //   res.send(`Test: ${Object.values(data.filings)[0].urlPrimaryDocument}`);
-      res.render('filingview', { data });
+      res.render('filingview', { data, title: ticker + " - Filing - Smart Filings" });
     } catch (error) {
       res.render('error', { error });
     }

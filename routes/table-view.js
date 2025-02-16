@@ -28,7 +28,7 @@ router.get('/:ticker/:cik/:accession/:document/:columns', async (req, res) => {
         };
       //   console.log('test');
       //   res.send(`Test: ${Object.values(data.filings)[0].urlPrimaryDocument}`);
-        res.render('table-view', { data });
+        res.render('table-view', { data, title: ticker + " - Similar Tables - Smart Filings" });
       } catch (error) {
         res.render('error', { error });
       }

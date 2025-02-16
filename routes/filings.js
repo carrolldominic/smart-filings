@@ -27,7 +27,7 @@ router.get('/:ticker', async (req, res) => {
         }
       }
       const quote = await yahooFinance.quote(ticker);  
-      const search = await yahooFinance.search(ticker);
+      const search = await yahooFinance.search(quote.shortName);
 
       // console.log(search);
       let financialFilings = [];
@@ -54,7 +54,7 @@ router.get('/:ticker', async (req, res) => {
         yahooNews: search.news
       };
     //   res.send(`Test: ${Object.values(data.filings)[0].urlPrimaryDocument}`);
-      res.render('filing', { data });
+      res.render('filing', { data, title: ticker + " - Smart Filings" });
     } catch (error) {
       res.render('error', { error });
     }

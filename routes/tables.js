@@ -28,7 +28,7 @@ router.get('/:ticker/:data', async (req, res) => {
         filings: financialFilings  // array of objects for which contain filing data and html for accordion
     };
 
-    res.render('tables', { data });
+    res.render('tables', { data, title: ticker + " - Similar Tables - Smart Filings" });
 });
 
 
